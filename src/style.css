@@ -71,7 +71,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: -2;
-  background: url('/src/assets/library_sanctuary.png') no-repeat center center;
+  background: url('/assets/library_sanctuary.png') no-repeat center center;
   background-size: cover;
   opacity: 0.25;
   filter: grayscale(30%) contrast(110%);

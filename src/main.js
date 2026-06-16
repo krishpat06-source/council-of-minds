@@ -21,7 +21,7 @@ const figuresData = {
       'To find yourself, think for yourself.'
     ],
     traits: ['Dialectical', 'Reflective', 'Ironist'],
-    avatar: '/src/assets/socrates.png'
+    avatar: '/assets/socrates.png'
   },
   hypatia: {
     id: 'hypatia',
@@ -41,7 +41,7 @@ const figuresData = {
       'Truth does not change because it is, or is not, believed.'
     ],
     traits: ['Analytical', 'Skeptical', 'Astronomical'],
-    avatar: '/src/assets/hypatia.png'
+    avatar: '/assets/hypatia.png'
   },
   davinci: {
     id: 'davinci',
@@ -61,7 +61,7 @@ const figuresData = {
       'Art is never finished, only abandoned.'
     ],
     traits: ['Observant', 'Creative', 'Polymathic'],
-    avatar: '/src/assets/davinci.png'
+    avatar: '/assets/davinci.png'
   },
   einstein: {
     id: 'einstein',
@@ -81,7 +81,7 @@ const figuresData = {
       'A person who never made a mistake never tried anything new.'
     ],
     traits: ['Theoretical', 'Pacifist', 'Intuitive'],
-    avatar: '/src/assets/einstein.png'
+    avatar: '/assets/einstein.png'
   },
   tesla: {
     id: 'tesla',
@@ -101,7 +101,7 @@ const figuresData = {
       'If you want to find the secrets of the universe, think in terms of energy, frequency and vibration.'
     ],
     traits: ['Visionary', 'Inventive', 'Unorthodox'],
-    avatar: '/src/assets/tesla.png'
+    avatar: '/assets/tesla.png'
   },
   turing: {
     id: 'turing',
@@ -121,7 +121,7 @@ const figuresData = {
       'A computer would deserve to be called intelligent if it could deceive a human into believing that it was human.'
     ],
     traits: ['Logical', 'Cryptographic', 'Enigmatic'],
-    avatar: '/src/assets/turing.png'
+    avatar: '/assets/turing.png'
   },
   curie: {
     id: 'curie',
@@ -141,7 +141,7 @@ const figuresData = {
       'There are sadistic scientists who hurry to hunt down errors instead of establishing the truth.'
     ],
     traits: ['Determined', 'Resilient', 'Experimental'],
-    avatar: '/src/assets/curie.png'
+    avatar: '/assets/curie.png'
   },
   newton: {
     id: 'newton',
@@ -161,7 +161,7 @@ const figuresData = {
       'Truth is the offspring of silence and meditation.'
     ],
     traits: ['Rigorous', 'Reclusive', 'Calculated'],
-    avatar: '/src/assets/newton.png'
+    avatar: '/assets/newton.png'
   }
 };
 
