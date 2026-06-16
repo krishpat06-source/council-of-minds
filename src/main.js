@@ -1,3 +1,6 @@
+import { inject } from '@vercel/analytics';
+inject();
+
 // Historical figures database
 const figuresData = {
   socrates: {
@@ -334,7 +337,7 @@ const navItems = document.querySelectorAll('.nav-links li, .scholar-btn');
 // Initialize view routing
 function showView(viewId) {
   state.activeView = viewId;
-  
+
   // Toggle sections
   Object.keys(views).forEach(key => {
     if (key === viewId) {
@@ -589,7 +592,7 @@ if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeProfileDrawer)
 if (drawerSummonBtn) {
   drawerSummonBtn.addEventListener('click', () => {
     if (!currentDrawerFigId) return;
-    
+
     if (state.activeCouncil.includes(currentDrawerFigId)) {
       // Remove
       state.activeCouncil = state.activeCouncil.filter(id => id !== currentDrawerFigId);
@@ -604,7 +607,7 @@ if (drawerSummonBtn) {
 
     renderCouncilSelectors();
     closeProfileDrawer();
-    
+
     // If we're in the council chamber, redraw the flow map nodes
     if (state.activeView === 'council') {
       drawFlowMap();
@@ -702,7 +705,7 @@ if (inquiryForm) {
     e.preventDefault();
     const query = userInquiryInput.value.trim();
     if (!query) return;
-    
+
     startDebateSimulation(query);
     userInquiryInput.value = '';
   });
@@ -735,9 +738,9 @@ function startDebateSimulation(question) {
       alert("Please convene at least one historical mind to start a discussion.");
       return;
     }
-    
+
     const erasCombined = state.activeCouncil.map(id => figuresData[id].name).join(" and ");
-    
+
     state.debateTranscript = [
       {
         speaker: state.activeCouncil[0],
@@ -753,12 +756,12 @@ function startDebateSimulation(question) {
       const spId = state.activeCouncil[i % state.activeCouncil.length];
       const prevSp = figuresData[state.debateTranscript[i - 1].speaker];
       const currentSp = figuresData[spId];
-      
+
       const isChallenge = i % 2 === 1;
       const type = isChallenge ? 'challenge' : 'agree';
       const consensusMod = isChallenge ? -10 : 8;
       const prevCons = state.debateTranscript[i - 1].consensus;
-      
+
       let text = "";
       if (isChallenge) {
         text = `I must build upon, yet pivot from ${prevSp.name}'s argument. In the realm of ${currentSp.discipline}, we view this differently. ${currentSp.quotes[0]} If we only analyze rules, we miss the experimental nature of the challenge.`;
@@ -795,7 +798,7 @@ function playDebate() {
   state.isPlaying = true;
   playPauseBtn.innerText = '⏸';
   playPauseBtn.title = 'Pause Debate';
-  
+
   // Start simulation loop
   state.debateTimer = setInterval(() => {
     if (state.timelineIndex < state.debateTranscript.length - 1) {
@@ -876,10 +879,10 @@ function renderCurrentTurn() {
   activeSpeakerAvatar.classList.add('speaking');
   // Reset after 4 seconds (before next turn)
   setTimeout(() => activeSpeakerAvatar.classList.remove('speaking'), 3800);
-  
+
   // 2. Add message to viewport if not already added
   const existingBubbles = debateViewportPanel.querySelectorAll('.message-bubble');
-  
+
   // We can render all messages up to the current timelineIndex
   debateViewportPanel.innerHTML = `
     <div style="text-align: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
@@ -892,7 +895,7 @@ function renderCurrentTurn() {
     const t = state.debateTranscript[i];
     const f = figuresData[t.speaker];
     const isLatest = i === state.timelineIndex;
-    
+
     const bubble = document.createElement('div');
     bubble.className = `message-bubble ${i % 2 === 1 ? 'right-align' : ''}`;
     bubble.innerHTML = `
@@ -917,7 +920,7 @@ function renderCurrentTurn() {
   // 3. Update timeline elements
   const percent = ((state.timelineIndex + 1) / state.debateTranscript.length) * 100;
   timelineSlider.value = percent;
-  
+
   // Formats times
   const curSeconds = (state.timelineIndex + 1) * 30;
   const totalSeconds = state.debateTranscript.length * 30;
@@ -1120,7 +1123,7 @@ function drawFlowMap() {
   // Draw connecting pathways first
   flowCtx.strokeStyle = 'rgba(207, 168, 81, 0.06)';
   flowCtx.lineWidth = 1;
-  
+
   for (let i = 0; i < numNodes; i++) {
     const angle = (i * 2 * Math.PI) / numNodes - Math.PI / 2;
     const x = centerX + radius * Math.cos(angle);
@@ -1190,7 +1193,7 @@ function pulseFlowMapLink(speakerId) {
     }
 
     progress += 0.05;
-    
+
     // Redraw base flow map
     drawFlowMap();
 
@@ -1243,7 +1246,7 @@ function saveActiveDebateSession() {
   state.savedDebates.unshift(newSession);
   localStorage.setItem('council_saved_debates', JSON.stringify(state.savedDebates));
   alert("Wisdom session successfully archived under Eternal Citation License!");
-  
+
   showView('archive');
 }
 
@@ -1282,10 +1285,10 @@ function loadSavedDebatesFromStorage() {
 function renderArchiveDirectory(searchQuery = '') {
   const grid = document.getElementById('archive-dialogues-grid');
   if (!grid) return;
-  
+
   grid.innerHTML = '';
 
-  const filtered = state.savedDebates.filter(deb => 
+  const filtered = state.savedDebates.filter(deb =>
     deb.question.toLowerCase().includes(searchQuery) || deb.category.toLowerCase().includes(searchQuery)
   );
 
@@ -1301,7 +1304,7 @@ function renderArchiveDirectory(searchQuery = '') {
   filtered.forEach(deb => {
     const card = document.createElement('div');
     card.className = 'archive-card';
-    
+
     // Render avatar icons list
     let avatarsHtml = '';
     deb.council.forEach(cid => {
@@ -1333,10 +1336,10 @@ function renderArchiveDirectory(searchQuery = '') {
       state.activeCouncil = [...deb.council];
       state.debateTranscript = [...deb.transcript];
       state.timelineIndex = -1;
-      
+
       renderCouncilSelectors();
       showView('council');
-      
+
       // Update heading & viewport
       debateViewportPanel.innerHTML = `
         <div style="text-align: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
@@ -1371,7 +1374,7 @@ function initApp() {
   initFloatingPortraits();
   renderCouncilSelectors();
   loadSavedDebatesFromStorage();
-  
+
   // Set initial route
   showView('sanctuary');
 }
@@ -1385,15 +1388,15 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 // =============================================
 // UPI PAYMENT MODAL
 // =============================================
-const upiOverlay    = document.getElementById('upi-modal-overlay');
-const upiCloseBtn   = document.getElementById('upi-modal-close');
-const goScholarBtn  = document.getElementById('btn-go-scholar');
-const upiCopyBtn    = document.getElementById('upi-copy-btn');
-const upiCopyLabel  = document.getElementById('upi-copy-label');
-const upiDeeplink   = document.getElementById('upi-deeplink-btn');
-const UPI_ID        = '7572995698@nyes';
-const UPI_NAME      = 'Council of Minds';
-const UPI_AMOUNT    = '19';
+const upiOverlay = document.getElementById('upi-modal-overlay');
+const upiCloseBtn = document.getElementById('upi-modal-close');
+const goScholarBtn = document.getElementById('btn-go-scholar');
+const upiCopyBtn = document.getElementById('upi-copy-btn');
+const upiCopyLabel = document.getElementById('upi-copy-label');
+const upiDeeplink = document.getElementById('upi-deeplink-btn');
+const UPI_ID = '7572995698@nyes';
+const UPI_NAME = 'Council of Minds';
+const UPI_AMOUNT = '19';
 
 function openUpiModal() {
   upiOverlay.classList.add('open');
